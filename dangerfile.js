@@ -11,19 +11,38 @@ if (changedFiles.length > 0) {
     try {
       // Run ESLint on the file
       const eslintOutput = execSync(`npx eslint ${file} --format json`, { encoding: 'utf-8' });
-      const lintResults = JSON.parse(eslintOutput);
 
-      lintResults.forEach(result => {
-        result.messages.forEach(({ message, severity, line, column }) => {
-          if (severity === 1) {
-            warn(`${message} (${file}:${line}:${column})`);
-          } else if (severity === 2) {
-            fail(`${message} (${file}:${line}:${column})`);
-          }
+      console.log("++++eslintoutput",eslintOutput)
+      
+      // Ensure output is valid JSON and check for messages
+      if (eslintOutput) {
+        const lintResults = JSON.parse(eslintOutput);
+
+        // Extract and log only the messages related to 'no-unused-vars' rule
+        lintResults.forEach(result => {
+          result.messages.forEach(({ message, severity, line, column }) => {
+            // If severity is 2 (error), use fail, if severity is 1 (warning), use warn
+            const location = `(${file}:${line}:${column})`;
+            if (severity === 2) {
+              fail(`${message} ${location}`);
+            } else if (severity === 1) {
+              warn(`${message} ${location}`);
+            }
+          });
         });
-      });
+      } else {
+        console.log(`No linting issues found for ${file}.`);
+      }
     } catch (error) {
-      console.error(`ESLint error on file ${file}:`, error.message);
+      console.error(`Error processing ESLint on file ${file}:`, error.message);
+      
+      // Log the output in case ESLint fails
+      if (error.stdout) {
+        console.error('ESLint output:', error.stdout.toString());
+      }
+      if (error.stderr) {
+        console.error('ESLint error:', error.stderr.toString());
+      }
     }
   });
 } else {
