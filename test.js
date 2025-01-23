@@ -1,3 +1,5 @@
-const name = "DangerJS Example"
-const name1 = "DangerJS Example"
-console.log(name)
+const firstname = "DangerJS Example"
+const secondname = "DangerJS Example"
+console.log(firstname)
+
+var names
