@@ -36,6 +36,7 @@ if (jsFiles.length > 0) {
 //DangerRule:checking dangerfile are changed or not
 const modifiedFiles=danger.git.modified_files || danger.git.created_files
 
+console.log("Recently modified file is ",modifiedFiles)
 modifiedFiles.forEach(file=>{
   if(file=="package.json")
   {
