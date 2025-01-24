@@ -1,6 +1,10 @@
-const { danger, fail } = require("danger");
+import { danger, fail } from "danger"
 const { execSync } = require("child_process");
 
+
+const createdFilterAddedFiles = execSync('git diff --name-only --cached --diff-filter=AM').toString().split('\n').filter(Boolean)
+
+console.log("createdandfilteraddeedfiles",createdFilterAddedFiles)
 // Run ESLint on changed JavaScript files
 let jsFiles = danger.git.modified_files.filter((file) =>
   file.endsWith(".js")
