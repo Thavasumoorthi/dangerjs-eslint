@@ -4,4 +4,3 @@ console.log(firstname)
 var names
 
 
-const lastname="Moorthi"
