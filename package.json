@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "danger": "^12.3.3"
+    "danger": "^12.3.3",
+    "dangerjs-eslint": "file:",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
