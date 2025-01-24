@@ -1,31 +1,40 @@
-const { danger, warn, fail } = require('danger');
-const { execSync } = require('child_process');
+import { danger, fail } from "danger";
+const { execSync } = require("child_process");
 
-// Get all the files changed in the PR
-const changedFiles = danger.git.modified_files.filter(file => file.endsWith('.js'));
+// Run Git command to get added and modified files
+const createdFilterAddedFiles = execSync('git diff --name-only --cached --diff-filter=AM').toString().split('\n').filter(Boolean);
+console.log("createdandfilteraddedfiles", createdFilterAddedFiles);
 
-if (changedFiles.length > 0) {
-  console.log('Running ESLint on the following files:', changedFiles);
+// Run ESLint on changed JavaScript files
+let jsFiles = danger.git.modified_files.filter((file) => file.endsWith(".js"));
+console.log("jsfiles is", jsFiles);
 
-  changedFiles.forEach(file => {
-    try {
-      // Run ESLint on the file
-      const eslintOutput = execSync(`npx eslint ${file} --format json`, { encoding: 'utf-8' });
-      const lintResults = JSON.parse(eslintOutput);
+jsFiles = jsFiles.filter((file) => file !== "dangerfile.js");
+console.log("after filter jsfiles is", jsFiles);
 
-      lintResults.forEach(result => {
-        result.messages.forEach(({ message, severity, line, column }) => {
-          if (severity === 1) {
-            warn(`${message} (${file}:${line}:${column})`);
-          } else if (severity === 2) {
-            fail(`${message} (${file}:${line}:${column})`);
-          }
-        });
-      });
-    } catch (error) {
-      console.error(`ESLint error on file ${file}:`, error.message);
-    }
-  });
+if (jsFiles.length > 0) {
+  console.log("Running ESLint on modified files...");
+  try {
+    // Run ESLint and capture output
+    const eslintOutput = execSync(`npx eslint ${jsFiles.join(" ")}`, {
+      encoding: "utf-8",
+    });
+    console.log("++ESlintoutput ", eslintOutput);
+  } catch (error) {
+    // Fail the Danger run if ESLint reports issues
+    const eslintErrors = error.stdout || error.message;
+    fail(`ESLint reported errors:\n\n\`\`\`\n${eslintErrors}\n\`\`\``);
+  }
 } else {
-  console.log('No JavaScript files changed.');
+  console.log("No JavaScript files were modified.");
 }
+
+// DangerRule: checking if package.json has been changed or not
+const modifiedFiles = danger.git.modified_files || danger.git.created_files;
+console.log("Recently modified files are ", modifiedFiles);
+
+modifiedFiles.forEach(file => {
+  if (file === "package.json") {
+    fail("You have recently changed the package.json file");
+  }
+});
