@@ -1,4 +1,4 @@
-name: Danger.js CI
+name: Danger.js and Eslint Integration
 
 on:
   pull_request:
