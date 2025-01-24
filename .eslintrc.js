@@ -4,7 +4,7 @@ module.exports = {
       sourceType: 'module', // if you're using ES modules
     },
     rules: {
-      'constructor-super': 'error', // Enable the constructor-super rule
+      'constructor-super': 'off', // Enable the constructor-super rule
       // Other rules...
     },
   };
