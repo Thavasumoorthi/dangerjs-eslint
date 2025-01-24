@@ -1,15 +1,19 @@
 const { danger, fail } = require("danger");
 const { execSync } = require("child_process");
+const { fileURLToPath } = require("url");
 
 // Run ESLint on changed JavaScript files
 let jsFiles = danger.git.modified_files.filter((file) =>
   file.endsWith(".js")
 );
 
+console.log("jsfiles is",jsFiles)
+
 jsFiles=jsFiles.filter((file=>{
-  file!="dangerfile.js"
+ return file!="dangerfile.js"
 }))
 
+console.log("after filter jsfiles is",jsFiles)
 
 
 if (jsFiles.length > 0) {
@@ -28,3 +32,13 @@ if (jsFiles.length > 0) {
 } else {
   console.log("No JavaScript files were modified.");
 }
+
+
+//DangerRule:checking dangerfile are changed or not
+
+jsFiles.forEach(file=>{
+  if(file=="package.json")
+  {
+    fail("You are Recently changed package json files")
+  }
+})
