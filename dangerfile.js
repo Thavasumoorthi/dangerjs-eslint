@@ -5,8 +5,11 @@ const { execSync } = require("child_process");
 const createdFilterAddedFiles = execSync('git diff --name-only --cached --diff-filter=AM').toString().split('\n').filter(Boolean);
 console.log("createdandfilteraddedfiles", createdFilterAddedFiles);
 
+
+let jsFiles =[...danger.git.modified_files,... danger.git.created_files]
+
 // Run ESLint on changed JavaScript files
-let jsFiles = danger.git.modified_files.filter((file) => file.endsWith(".js"));
+ jsFiles = jsFiles.filter((file) =>  file.endsWith(".js"));
 console.log("jsfiles is", jsFiles);
 
 jsFiles = jsFiles.filter((file) => file !== "dangerfile.js");
