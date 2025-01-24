@@ -12,7 +12,7 @@ let jsFiles = danger.git.modified_files.filter((file) =>
 
 console.log("jsfiles is",jsFiles)
 
-jsFiles=createdFilterAddedFiles.filter((file=>{
+jsFiles=jsFiles.filter((file=>{
  return file!="dangerfile.js"
 }))
 
