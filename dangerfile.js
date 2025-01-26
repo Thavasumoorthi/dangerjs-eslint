@@ -1,7 +1,5 @@
-import {eslintchecking,packagejsonchanging} from 'dangerjs-rule'
+const {eslintchecking,packagejsonchanging} =require('dangerrule')
 
+console.log(eslintchecking())
 
-
-eslintchecking()
-
-packagejsonchanging()
+console.log(packagejsonchanging())

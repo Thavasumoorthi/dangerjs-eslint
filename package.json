@@ -8,11 +8,13 @@
   },
   "author": "",
   "license": "ISC",
+  "types": "module",
   "dependencies": {
     "body-parser": "^1.20.3",
     "danger": "^12.3.3",
     "dangerjs-eslint": "file:",
-    "dangerjs-rule": "^1.0.0"
+    "dangerrule": "^1.0.0",
+    "onetime-gen": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
