@@ -1,0 +1,3 @@
+[submodule "danger-rules-repo"]
+	path = danger-rules-repo
+	url = https://github.com/Thavasumoorthi/danger-rule-repo.git
