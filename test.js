@@ -1,2 +1,3 @@
 const name = "DangerJS Example"
-console.log(name)
+const a=10
+const b=20
