@@ -1,5 +1,7 @@
-const {eslintchecking,packagejsonchanging} =require('dangerrule')
+const {eslintchecking,packagejsonchanging} =require("dangerrule")
 
-console.log(eslintchecking())
+eslintchecking()
+packagejsonchanging()
 
-console.log(packagejsonchanging())
+
+
