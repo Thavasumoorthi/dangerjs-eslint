@@ -1,31 +1,48 @@
-const { danger, warn, fail } = require('danger');
-const { execSync } = require('child_process');
+const {eslintchecking,packagejsonchanging,ModifiedFiles,createdFilterAddedFiles} =require("dangerrule")
 
-// Get all the files changed in the PR
-const changedFiles = danger.git.modified_files.filter(file => file.endsWith('.js'));
+eslintchecking()
+packagejsonchanging()
 
-if (changedFiles.length > 0) {
-  console.log('Running ESLint on the following files:', changedFiles);
 
-  changedFiles.forEach(file => {
-    try {
-      // Run ESLint on the file
-      const eslintOutput = execSync(`npx eslint ${file} --format json`, { encoding: 'utf-8' });
-      const lintResults = JSON.parse(eslintOutput);
 
-      lintResults.forEach(result => {
-        result.messages.forEach(({ message, severity, line, column }) => {
-          if (severity === 1) {
-            warn(`${message} (${file}:${line}:${column})`);
-          } else if (severity === 2) {
-            fail(`${message} (${file}:${line}:${column})`);
-          }
-        });
-      });
-    } catch (error) {
-      console.error(`ESLint error on file ${file}:`, error.message);
-    }
-  });
-} else {
-  console.log('No JavaScript files changed.');
+
+
+
+if (danger.github.pr.title.length < 10) {
+    fail("PR title should be at least 10 characters long.");
+  }
+  
+  if (!danger.github.pr.body || danger.github.pr.body.length < 20) {
+    fail("PR description should provide enough context (at least 20 characters).");
+  }
+
+
+
+  //Rule 6:Ensure PR have assignee
+const pr = danger.github.pr
+if (pr.assignee === null) {
+  fail("Please assign someone to merge this PR, and optionally include people who should review.");
 }
+
+
+//rule 3 check secrets file are changed:
+
+function secretFileChanged()
+{
+console.log("source modified file is ",ModifiedFiles)
+
+console.log("get created and modified files from git",createdFilterAddedFiles)
+
+  if(createdFilterAddedFiles.length>0){createdFilterAddedFiles.forEach((file=>{
+    if(file=="secrets.js")
+    {
+        fail("Secrets env file are changed please monitor the secrets env file")
+    }
+}))
+  }
+
+}
+
+secretFileChanged()
+
+
