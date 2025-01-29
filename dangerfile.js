@@ -1,3 +1,4 @@
+const js = require("@eslint/js");
 const { execSync } = require("child_process")
 const {eslintchecking,packagejsonchanging,ModifiedFiles,createdFilterAddedFiles} =require("dangerrule")
 
@@ -8,7 +9,7 @@ packagejsonchanging()
 
 const latestmodifiedfile = execSync('git diff --name-only  --diff-filter=AM ').toString().split('\n').filter(Boolean);
 let jsFiles = [...danger.git.modified_files, ...danger.git.created_files];
-
+console.log("jsFiles",jsFiles)
 
 console.log("latest modifed file is",latestmodifiedfile)
 
@@ -40,14 +41,17 @@ console.log("source modified file is ",ModifiedFiles)
 console.log("get created and modified files from git",createdFilterAddedFiles)
 
   if(jsFiles.length>0){jsFiles.forEach((file=>{
-    if(file=="secrets.js" && file=="new.js")
+    if( file=="secrets.js")
     {
-        fail("Secrets.env and new.js file are changed")
+        fail("Secrets.env  file are changed please monitor these file....")
     }
 }))
   }
 
 }
+
+
+
 
 secretFileChanged()
 
