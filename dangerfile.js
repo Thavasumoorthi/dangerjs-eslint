@@ -33,12 +33,13 @@ console.log("source modified file is ",ModifiedFiles)
 
 console.log("get created and modified files from git",createdFilterAddedFiles)
 
-createdFilterAddedFiles.forEach((file=>{
+  if(createdFilterAddedFiles.length>0){createdFilterAddedFiles.forEach((file=>{
     if(file=="secrets.js")
     {
         fail("Secrets env file are changed please monitor the secrets env file")
     }
 }))
+  }
 
 }
 
