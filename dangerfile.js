@@ -1,4 +1,5 @@
 const {eslintchecking,packagejsonchanging,ModifiedFiles,createdFilterAddedFiles} =require("dangerrule")
+const {danger}=require("danger")
 
 eslintchecking()
 packagejsonchanging()
