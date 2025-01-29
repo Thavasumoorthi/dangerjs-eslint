@@ -1,5 +1,20 @@
-const a=10;
-const b=20;
-const c=20;
+class Dangerclass{
 
-console.log("Hello Thavasumoorthi");
+    ruleChecker()
+    {
+        console.log("danger class Rule checking........")
+    }
+
+    firstRukechecking()
+    {
+        console.log("First console log checking")
+    }
+
+    secondRuleChecking()
+    {
+        console.log("second console log checking")
+    }
+}
+
+
+export default Dangerclass;
