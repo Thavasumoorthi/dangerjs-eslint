@@ -7,6 +7,8 @@ packagejsonchanging()
 
 
 const latestmodifiedfile = execSync('git diff --name-only  --diff-filter=AM ').toString().split('\n').filter(Boolean);
+let jsFiles = [...danger.git.modified_files, ...danger.git.created_files];
+
 
 console.log("latest modifed file is",latestmodifiedfile)
 
@@ -37,10 +39,10 @@ console.log("source modified file is ",ModifiedFiles)
 
 console.log("get created and modified files from git",createdFilterAddedFiles)
 
-  if(latestmodifiedfile.length>0){latestmodifiedfile.forEach((file=>{
-    if(file=="secrets.js")
+  if(jsFiles.length>0){jsFiles.forEach((file=>{
+    if(file=="secrets.js" && file=="new.js")
     {
-        fail("Secrets env file are changed please monitor the secrets env file")
+        fail("Secrets.env and new.js file are changed")
     }
 }))
   }
