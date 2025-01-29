@@ -1,3 +1,2 @@
 DB_NAME="POSTGRESQL"
 DB_USER="Thavasumoorthi"
-DB_PORT=5432
