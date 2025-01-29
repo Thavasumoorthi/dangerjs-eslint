@@ -3,7 +3,6 @@ class Dangerclass{
     ruleChecker()
     {
         console.log("danger class Rule checking........")
-        console.log("danger class Rule checking........")
 
     }
 

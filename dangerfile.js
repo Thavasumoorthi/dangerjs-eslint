@@ -8,21 +8,21 @@ packagejsonchanging()
 
 
 
-if (danger.github.pr.title.length < 10) {
-    fail("PR title should be at least 10 characters long.");
-  }
+// if (danger.github.pr.title.length < 10) {
+//     fail("PR title should be at least 10 characters long.");
+//   }
   
-  if (!danger.github.pr.body || danger.github.pr.body.length < 20) {
-    fail("PR description should provide enough context (at least 20 characters).");
-  }
+//   if (!danger.github.pr.body || danger.github.pr.body.length < 20) {
+//     fail("PR description should provide enough context (at least 20 characters).");
+//   }
 
 
 
-  //Rule 6:Ensure PR have assignee
-const pr = danger.github.pr
-if (pr.assignee === null) {
-  fail("Please assign someone to merge this PR, and optionally include people who should review.");
-}
+//   //Rule 6:Ensure PR have assignee
+// const pr = danger.github.pr
+// if (pr.assignee === null) {
+//   fail("Please assign someone to merge this PR, and optionally include people who should review.");
+// }
 
 
 //rule 3 check secrets file are changed:

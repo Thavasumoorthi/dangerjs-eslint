@@ -11,8 +11,6 @@ class sensitiveFailChanging extends DangerClass{
     ruleChecker()
     {
         console.log("Sensitive fail are changed...")
-        console.log("Sensitive fail are changed...")
-
     }
 }
 
